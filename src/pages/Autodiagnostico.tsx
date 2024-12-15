@@ -33,12 +33,12 @@ const Autodiagnostico: React.FC = () => {
   });
 
   const sectionDescriptions: { [key: string]: string } = {
-    Medular: "En esta sección, identifica las competencias fundamentales que definen tu perfil profesional.",
-    Gerencial: "En esta sección, identifica las habilidades y capacidades relacionadas con la gestión y liderazgo.",
-    TICs: "Evalúa tus conocimientos y competencias relacionadas con las Tecnologías de la Información y la Comunicación.",
-    Organizacional: "Describe cómo tus habilidades contribuyen a la organización, planificación y desarrollo de procesos.",
-    Relacional: "Analiza tus capacidades de comunicación, trabajo en equipo y desarrollo de relaciones interpersonales.",
-    "Temas Expertos": "Proporciona información sobre temas específicos en los que eres un experto o tienes conocimiento profundo.",
+    Medular: "Conocimientos que generan ventajas competitivas a la subsecretaria de tesorería, conocimientos nuevos, algo especial y único. Conocimientos esenciales que se tienen. Agregar.",
+    Gerencial: "No esencial, puede incluir por ejemplo: Gestión de proyectos, gerencia de proyectos, gestión de conocimiento, etc.",
+    TICs: "No esencial. Se refiere a conocimientos y competencias relacionadas con las Tecnologías de la Información y la Comunicación, puede incluir, por ejemplo: herramientas ofimáticas, herramientas informáticas, software especifico, etc.",
+    Organizacional: "No esencial. Son conocimientos que contribuyen a la organización, planificación y desarrollo de procesos. Puede incluir por ejemplo: estructura organizacional, procesos, sistemas de calidad, atención al cliente, etc.",
+    Relacional: "No esencial. Puede incluir por ejemplo conocimientos relacionados o importantes para el cumplimiento de sus funciones, los cuales incluyen: normatividades, leyes, entidades, etc.",
+    "Temas Expertos": "No esencial. Implica responder la pregunta ¿En qué tipo de conocimiento me considero un experto? Puede iniciar su declaración como: conocimiento en investigación cualitativa, conocimiento en evaluación de puestos de trabajo, etc. No necesariamente estos conocimientos generan ventaja competitiva.",
     Experiencia: "Detalla tus proyectos, conocimientos no laborales, educación y reconocimientos obtenidos.",
   };
 
@@ -191,6 +191,35 @@ const Autodiagnostico: React.FC = () => {
     }
   };
 
+
+  const experienceQuestions = {
+    "Proyecto presente": "¿En qué proyectos se encuentra actualmente trabajando o desempeñando?",
+    "Proyecto futuro": "¿Cual es su proyecto profesional a futuro?",
+    "Proyecto WOW pasado": "Son aquellos que han generado aprendizajes significativos a las organizaciones o entidades donde ha trabajado.",
+    "Conocimientos no relacionados con el trabajo y hobbies": "Otros conocimientos o habilidades, hobbies o actividades de entretenimiento, por ejemplo: batería, cerámica, guitarra, etc.",
+    "Educación formal, no formal y autoaprendizaje": "Aspectos relacionados con educación, pregrado, posgrados, diplomados, cursos. Indique los más importantes y más recientes.",
+    "Reconocimientos/publicaciones": "Incluya reconocimientos recibidos o publicaciones destacadas relacionadas con su trayectoria profesional o académica."
+  };
+  
+  // Nueva entrada para Redes Sociales
+  const [socialNetworks, setSocialNetworks] = useState<{ input: string }[]>([]);
+  
+  const handleAddSocialNetwork = () => {
+    setSocialNetworks([...socialNetworks, { input: '' }]);
+  };
+  
+  const handleSocialNetworkChange = (index: number, value: string) => {
+    const updatedSocialNetworks = [...socialNetworks];
+    updatedSocialNetworks[index].input = value;
+    setSocialNetworks(updatedSocialNetworks);
+  };
+  
+  const handleRemoveSocialNetwork = (index: number) => {
+    const updatedSocialNetworks = socialNetworks.filter((_, i) => i !== index);
+    setSocialNetworks(updatedSocialNetworks);
+  };
+  
+
   const handleFinish = () => {
     const data: { Sección: string; Pregunta: string; Valor: string | number; Respuesta: string }[] = [];
 
@@ -248,6 +277,19 @@ idiomas.forEach((idioma) => {
     Respuesta: '',
   });
 });
+
+// Procesar "Redes Sociales"
+socialNetworks.forEach((network) => {
+  if (network.input.trim() !== "") {
+    data.push({
+      Sección: "Redes Sociales",
+      Pregunta: "URL",
+      Valor: '',
+      Respuesta: network.input,
+    });
+  }
+});
+
 
 
     // Generar el archivo Excel
@@ -361,19 +403,24 @@ idiomas.forEach((idioma) => {
 
           {currentSection === 'Experiencia' ? (
             <Box>
-              {Object.keys(openTextFields).map((field) => (
-                <Box key={field} marginBottom={3}>
-                  <Typography variant="subtitle1">{field}</Typography>
-                  <TextField
-                    multiline
-                    rows={4}
-                    fullWidth
-                    variant="outlined"
-                    value={openTextFields[field]}
-                    onChange={(e) => handleOpenTextChange(field, e.target.value)}
-                  />
-                </Box>
-              ))}
+            {Object.keys(openTextFields).map((field) => (
+              <Box key={field} marginBottom={3}>
+                <Typography variant="subtitle1">
+                  {field}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                {experienceQuestions[field as keyof typeof experienceQuestions]}
+                </Typography>
+                <TextField
+                  multiline
+                  rows={4}
+                  fullWidth
+                  variant="outlined"
+                  value={openTextFields[field]}
+                  onChange={(e) => handleOpenTextChange(field, e.target.value)}
+                />
+              </Box>
+            ))}
               {['Educación formal, no formal y autoaprendizaje', 'Reconocimientos/publicaciones'].map(
                 (category) => (
                   <Box key={category} marginBottom={4}>
@@ -384,7 +431,7 @@ idiomas.forEach((idioma) => {
                       onClick={() => handleExperienceAddInput(category)}
                       style={{ marginTop: '10px', marginBottom: '10px' }}
                     >
-                      + Agregar entrada
+                      + AGREGAR DOMINIO DE CONOCIMIENTO
                     </Button>
                     {experienceInputs[category].map((item, index) => (
                       <Box
@@ -419,6 +466,45 @@ idiomas.forEach((idioma) => {
                   </Box>
                 )
               )}
+
+<Box marginTop={4}>
+  <Typography variant="h6">Redes Sociales</Typography>
+  <Button
+    variant="outlined"
+    color="primary"
+    onClick={handleAddSocialNetwork}
+    style={{ marginTop: '10px', marginBottom: '10px' }}
+  >
+    + Agregar URL de red social
+  </Button>
+  {socialNetworks.map((network, index) => (
+    <Box
+      key={index}
+      display="flex"
+      alignItems="center"
+      marginBottom={2}
+    >
+      <TextField
+        label="URL de Red Social"
+        value={network.input}
+        onChange={(e) => handleSocialNetworkChange(index, e.target.value)}
+        fullWidth
+        size="small"
+        margin="dense"
+        style={{ marginRight: '10px' }}
+      />
+      <Button
+        variant="contained"
+        color="secondary"
+        onClick={() => handleRemoveSocialNetwork(index)}
+        style={{ marginLeft: '10px' }}
+      >
+        Eliminar
+      </Button>
+    </Box>
+  ))}
+</Box>
+
 
 <Box marginTop={4}>
   <Typography variant="h6">Idiomas</Typography>
@@ -490,7 +576,7 @@ idiomas.forEach((idioma) => {
                 onClick={() => handleAddInput(currentSection || '')}
                 style={{ marginBottom: '20px' }}
               >
-                + Agregar entrada
+                + AGREGAR DOMINIO DE CONOCIMIENTO
               </Button>
               {sections[currentSection || ''].map((item, index) => (
   <Box
@@ -501,7 +587,7 @@ idiomas.forEach((idioma) => {
     marginBottom={2}
   >
     <TextField
-      label="Pregunta"
+      label="Conocimiento"
       value={item.input}
       onChange={(e) =>
         handleInputChange(currentSection || '', index, e.target.value)
@@ -514,7 +600,7 @@ idiomas.forEach((idioma) => {
     {currentSection !== "Temas Expertos" && (
       <Box>
         <Typography variant="subtitle2" style={{ textAlign: 'center' }}>
-          Valor disponible
+        disponible
         </Typography>
         <Select
           value={item.rating}
@@ -529,7 +615,7 @@ idiomas.forEach((idioma) => {
           style={{ width: '120px' }}
         >
           <MenuItem value={0} disabled>
-            Valor disponible
+          disponible
           </MenuItem>
           {Array.from({ length: 5 }, (_, i) => i + 1).map((num) => (
             <MenuItem key={num} value={num}>
