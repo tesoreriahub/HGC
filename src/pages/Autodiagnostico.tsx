@@ -326,6 +326,9 @@ socialNetworks.forEach((network) => {
             Bienvenido(a) Hoja de conocimiento
           </Typography>
           <Typography variant="body1" paragraph>
+            Herramienta de análisis para identificar y caracterizar el sistema dinámico del conocimiento que poseen las personas y los grupos en una organización. Calcula aspectos menos reconocibles como la experiencia o el conocimiento práctico.
+          </Typography>
+          <Typography variant="body1" paragraph>
             Ingrese su información para continuar:
           </Typography>
           <TextField
@@ -367,6 +370,14 @@ socialNetworks.forEach((network) => {
           >
             Comenzar
           </Button>
+          <Box marginTop={4} textAlign="center">
+        <Typography variant="body2">
+          <strong>Créditos</strong>
+        </Typography>
+        <Typography variant="body2">Desarrollado por Julián Uribe - julian.uribe@medellin.gov.co</Typography>
+        <Typography variant="body2">Desarrollado por Alejandro Salgar - alejandro.salgar@medellin.gov.co</Typography>
+        <Typography variant="body2">Supervisado por Jorge Iván Brand Ortiz Ph.D - Subsecretaria de Tesorería - Secretaria de Hacienda</Typography>
+      </Box>
         </Box>
       ) : (
         <Box>
@@ -649,6 +660,7 @@ socialNetworks.forEach((network) => {
           )}
         </Box>
       )}
+     
     </Container>
   );
 };
