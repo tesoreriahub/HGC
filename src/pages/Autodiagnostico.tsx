@@ -24,21 +24,21 @@ interface SectionInputs {
 const Autodiagnostico: React.FC = () => {
   const navigate = useNavigate();
   const [sections, setSections] = useState<SectionInputs>({
-    Medular: [],
-    Gerencial: [],
-    TICs: [],
-    Organizacional: [],
-    Relacional: [],
-    "Temas Expertos": [],
+    "Conocimiento medular": [],
+    "Conocimiento gerencial": [],
+    "Conocimiento en tecnologías de la información y las comunicaciones": [],
+    "Conocimiento organizacional": [],
+    "Conocimiento relacional": [],
+    "Conocimiento temas experto": [],
   });
 
   const sectionDescriptions: { [key: string]: string } = {
-    Medular: "Conocimientos que generan ventajas competitivas a la subsecretaria de tesorería, conocimientos nuevos, algo especial y único. Conocimientos esenciales que se tienen. Agregar.",
-    Gerencial: "No esencial, puede incluir por ejemplo: Gestión de proyectos, gerencia de proyectos, gestión de conocimiento, etc.",
-    TICs: "No esencial. Se refiere a conocimientos y competencias relacionadas con las Tecnologías de la Información y la Comunicación, puede incluir, por ejemplo: herramientas ofimáticas, herramientas informáticas, software especifico, etc.",
-    Organizacional: "No esencial. Son conocimientos que contribuyen a la organización, planificación y desarrollo de procesos. Puede incluir por ejemplo: estructura organizacional, procesos, sistemas de calidad, atención al cliente, etc.",
-    Relacional: "No esencial. Puede incluir por ejemplo conocimientos relacionados o importantes para el cumplimiento de sus funciones, los cuales incluyen: normatividades, leyes, entidades, etc.",
-    "Temas Expertos": "No esencial. Implica responder la pregunta ¿En qué tipo de conocimiento me considero un experto? Puede iniciar su declaración como: conocimiento en investigación cualitativa, conocimiento en evaluación de puestos de trabajo, etc. No necesariamente estos conocimientos generan ventaja competitiva.",
+    "Conocimiento medular": "Son conocimientos esenciales que generan ventajas competitivas a la subsecretaria de tesorería de la secretaria de hacienda como por ejemplo gestión de ingresos, gestión del gasto público, análisis de riesgos, entre otros, también son conocimientos nuevos, algo especial y único, como por ejemplo modelos de predicción, transformación digital, entre otros o conocimientos esenciales que se tienen desde la formación profesional como ingeniería económica, inversiones entre otros.",
+    "Conocimiento gerencial": "Son conocimientos no esenciales definidos como la información, experiencia y habilidades estratégicas que facilitan la toma de decisiones y la gestión organizacional eficaz, puede incluir, por ejemplo: gestión y gerencia de proyectos, gestión financiera, gestión del cambio, gestión de la productividad, gestión de conocimiento, etc.",
+    "Conocimiento en tecnologías de la información y las comunicaciones": "Son conocimientos no esenciales. Se refiere a conocimientos y competencias relacionadas con las Tecnologías de la Información y la Comunicación, puede incluir, por ejemplo: herramientas ofimáticas como Word, Excel, OneDrive, Teams, Google Drive, LibreOffice, entre otros, herramientas informáticas tales como sistemas operativos, bases de datos (SQL), lenguajes de programación (Python, Javascript, entre otros) o software especifico como SAP, Adobe, etc.",
+    "Conocimiento organizacional": "Son conocimientos no esenciales que contribuyen a la organización, planificación y desarrollo de procesos. Puede incluir por ejemplo: estructura organizacional, procesos, sistemas de calidad, atención al cliente, gestión de equipos, toma de decisiones, gestión del tiempo, responsabilidad social y corporativa, innovación, liderazgo, negociación, etc.",
+    "Conocimiento relacional": "Son conocimientos no esenciales relacionados o importantes para el cumplimiento de sus funciones y labores en su cargo, los cuales incluyen: decretos tributarios y de crédito público, normatividades, leyes como principios y normas contables y de información financiera, entidades (DIAN, Ministerio, Contraloría y demás), manuales del Estado, etc.",
+    "Conocimiento temas experto": "Son conocimientos no esenciales que implican responder a la pregunta ¿En qué tipo de conocimiento me considero un experto? Puede ser, por ejemplo: investigación cualitativa, gestión tecnológica, evaluación de puestos de trabajo, entorno económico, regulaciones, redes y seguridad, etc. No necesariamente estos conocimientos generan ventaja competitiva",
     Experiencia: "Detalla tus proyectos, conocimientos no laborales, educación y reconocimientos obtenidos.",
   };
 
@@ -64,9 +64,9 @@ const Autodiagnostico: React.FC = () => {
   const [emailError, setEmailError] = useState('');
   const [showAlert, setShowAlert] = useState(false);
   const [currentSection, setCurrentSection] = useState<string | null>(null);
-
+  const [unidad, setUnidad] = useState('');
   const sectionKeys = [...Object.keys(sections), 'Experiencia'];
-  const [unlockedSections, setUnlockedSections] = useState<string[]>(['Medular']);
+  const [unlockedSections, setUnlockedSections] = useState<string[]>(['Conocimiento medular']);
   const [idiomas, setIdiomas] = useState<{ input: string; rating: number }[]>([]);
 
   const validarCorreo = (correo: string) => {
@@ -84,7 +84,7 @@ const Autodiagnostico: React.FC = () => {
     } else {
       setEmailError('');
       setShowAlert(false);
-      setCurrentSection('Medular'); // Inicia con la primera sección
+      setCurrentSection('Conocimiento medular'); // Inicia con la primera sección
     }
   };
 
@@ -235,10 +235,17 @@ const Autodiagnostico: React.FC = () => {
       });
     });
 
+    data.push({
+      Sección: "Información General",
+      Pregunta: "Unidad a la que pertenece",
+      Valor: '',
+      Respuesta: unidad, // Aquí se agrega el valor seleccionado
+    });
+
     // Procesar "Temas Expertos"
-    const temasExpertosData = sections["Temas Expertos"]
+    const temasExpertosData = sections["Conocimiento temas experto"]
       .map((entry) => ({
-        Sección: "Temas Expertos",
+        Sección: "Conocimiento temas experto",
         Pregunta: entry.input,
         Valor: '',
         Respuesta: '',
@@ -326,7 +333,7 @@ socialNetworks.forEach((network) => {
             Bienvenido(a) Hoja de conocimiento
           </Typography>
           <Typography variant="body1" paragraph>
-            Herramienta de análisis para identificar y caracterizar el sistema dinámico del conocimiento que poseen las personas y los grupos en una organización. Calcula aspectos menos reconocibles como la experiencia o el conocimiento práctico.
+          Herramienta para identificar el conocimiento que poseen las personas y los grupos dentro de una organización, estructurada en cinco componentes principales. Permite reconocer aspectos menos evidentes, como la experiencia, los proyectos, las áreas de especialización y, en general, el conocimiento práctico de los individuos. Su finalidad es la creación de un banco de páginas amarillas dentro de la organización
           </Typography>
           <Typography variant="body1" paragraph>
             Ingrese su información para continuar:
@@ -357,11 +364,36 @@ socialNetworks.forEach((network) => {
             error={!!emailError}
             helperText={emailError}
           />
+          <Typography variant="h6" gutterBottom>
+            Seleccione la unidad a la que pertenece 
+          </Typography>
+          <Select
+            value={unidad}
+            onChange={(e) => setUnidad(e.target.value)}
+            displayEmpty
+            fullWidth
+            required
+          >
+            <MenuItem value="" disabled>
+              Seleccione una unidad
+            </MenuItem>
+            <MenuItem value="Control y riesgos">Control y riesgos</MenuItem>
+            <MenuItem value="Inversiones">Inversiones</MenuItem>
+            <MenuItem value="Caja">Caja</MenuItem>
+            <MenuItem value="Caja - pagos">Caja - pagos</MenuItem>
+            <MenuItem value="Caja - recaudos">Caja - recaudos</MenuItem>
+            <MenuItem value="Cobranza - coactivo">Cobranza - coactivo</MenuItem>
+            <MenuItem value="Cobranza - fp">Cobranza - facilidades de pago</MenuItem>
+            <MenuItem value="Cobranza - concursales">Cobranza - concursales</MenuItem>
+            <MenuItem value="Cobranza - persuasivo">Cobranza - persuasivo</MenuItem>
+            <MenuItem value="Despacho">Despacho subsecretaria</MenuItem>
+          </Select>
           {showAlert && (
             <Alert severity="warning" onClose={() => setShowAlert(false)}>
               Por favor complete todos los campos antes de continuar.
             </Alert>
           )}
+
           <Button
             variant="contained"
             color="primary"
@@ -378,6 +410,11 @@ socialNetworks.forEach((network) => {
         <Typography variant="body2">Desarrollado por Alejandro Salgar - alejandro.salgar@medellin.gov.co</Typography>
         <Typography variant="body2">Supervisado por Jorge Iván Brand Ortiz Ph.D - Subsecretaria de Tesorería - Secretaria de Hacienda</Typography>
       </Box>
+      <Typography variant="h6">Referencias</Typography>
+            
+            <Typography variant="body2" paragraph>
+            Muñoz, A., et al.  ABECÉ del Modelo de Gestión del Conocimiento y la Innovación en el ITM (1.ª ed.). Editorial ITM. doi.org/10.22430/reporte.5958
+            </Typography>
         </Box>
       ) : (
         <Box>
@@ -581,71 +618,78 @@ socialNetworks.forEach((network) => {
             </Box>
           ) : (
             <Box>
-              <Button
-                variant="outlined"
-                color="primary"
-                onClick={() => handleAddInput(currentSection || '')}
-                style={{ marginBottom: '20px' }}
-              >
-                + AGREGAR DOMINIO DE CONOCIMIENTO
-              </Button>
-              {sections[currentSection || ''].map((item, index) => (
-  <Box
-    key={index}
-    display="flex"
-    alignItems="center"
-    justifyContent="space-between"
-    marginBottom={2}
-  >
-    <TextField
-      label="Conocimiento"
-      value={item.input}
-      onChange={(e) =>
-        handleInputChange(currentSection || '', index, e.target.value)
-      }
-      fullWidth
-      size="small"
-      margin="dense"
-      style={{ marginRight: '10px' }}
-    />
-    {currentSection !== "Temas Expertos" && (
-      <Box>
-        <Typography variant="subtitle2" style={{ textAlign: 'center' }}>
-        disponible
-        </Typography>
-        <Select
-          value={item.rating}
-          onChange={(e) =>
-            handleDropdownChange(
-              currentSection || '',
-              index,
-              parseInt(e.target.value as string, 5)
-            )
-          }
-          size="small"
-          style={{ width: '120px' }}
-        >
-          <MenuItem value={0} disabled>
-          disponible
-          </MenuItem>
-          {Array.from({ length: 5 }, (_, i) => i + 1).map((num) => (
-            <MenuItem key={num} value={num}>
-              {num}
-            </MenuItem>
-          ))}
-        </Select>
-      </Box>
-    )}
-    <Button
-      variant="contained"
-      color="secondary"
-      onClick={() => handleRemoveInput(currentSection || '', index)}
-      style={{ marginLeft: '10px' }}
+              <Box>
+  {sections[currentSection || ''].map((item, index) => (
+    <Box
+      key={index}
+      display="flex"
+      alignItems="center"
+      justifyContent="space-between"
+      marginBottom={2}
     >
-      Eliminar
-    </Button>
-  </Box>
-))}
+      <TextField
+        label="Conocimiento"
+        value={item.input}
+        onChange={(e) =>
+          handleInputChange(currentSection || '', index, e.target.value)
+        }
+        fullWidth
+        size="small"
+        margin="dense"
+        style={{ marginRight: '10px' }}
+      />
+      {currentSection !== "Conocimiento temas experto" && (
+        <Box>
+          <Typography variant="subtitle2" style={{ textAlign: 'center' }}>
+            disponible
+          </Typography>
+          <Select
+            value={item.rating}
+            onChange={(e) =>
+              handleDropdownChange(
+                currentSection || '',
+                index,
+                parseInt(e.target.value as string, 5)
+              )
+            }
+            size="small"
+            style={{ width: '120px' }}
+          >
+            <MenuItem value={0} disabled>
+              disponible
+            </MenuItem>
+            {Array.from({ length: 5 }, (_, i) => i + 1).map((num) => (
+              <MenuItem key={num} value={num}>
+                {num}
+              </MenuItem>
+            ))}
+          </Select>
+        </Box>
+      )}
+      <Button
+        variant="contained"
+        color="secondary"
+        onClick={() => handleRemoveInput(currentSection || '', index)}
+        style={{ marginLeft: '10px' }}
+      >
+        Eliminar
+      </Button>
+    </Box>
+  ))}
+
+  {/* Botón de agregar colocado al final de la lista */}
+  <Button
+    variant="outlined"
+    color="primary"
+    onClick={() => handleAddInput(currentSection || '')}
+    style={{ marginBottom: '20px', marginTop: '10px' }}
+  >
+    + AGREGAR DOMINIO DE CONOCIMIENTO
+  </Button>
+
+ 
+</Box>
+
 
               <Button
                 variant="contained"

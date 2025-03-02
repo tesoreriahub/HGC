@@ -1,9 +1,7 @@
 // src/components/Header.tsx
-import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import Toolbar from '@mui/material/Toolbar';
@@ -38,21 +36,6 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
   return (
     <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
       <Toolbar>
-        <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleSidebar}>
-          <MenuIcon />
-        </IconButton>
-        <Typography variant="h6" style={{ flexGrow: 1 }}>
-          Desarrollos
-        </Typography>
-        {isAuthenticated ? (
-          <Button color="inherit" onClick={handleLogout}>
-            Logout
-          </Button>
-        ) : (
-          <Button color="inherit" onClick={() => setOpen(true)}>
-            Login
-          </Button>
-        )}
       </Toolbar>
       <Modal open={open} onClose={() => setOpen(false)}>
         <Box
