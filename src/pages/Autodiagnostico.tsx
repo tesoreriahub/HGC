@@ -680,7 +680,7 @@ socialNetworks.forEach((network) => {
               handleDropdownChange(
                 currentSection || '',
                 index,
-                parseInt(e.target.value as string, 5)
+                parseInt(e.target.value as string, 6)
               )
             }
             size="small"
