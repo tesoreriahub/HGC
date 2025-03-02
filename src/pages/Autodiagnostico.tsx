@@ -357,7 +357,10 @@ socialNetworks.forEach((network) => {
           <Typography variant='h2' align='center' gutterBottom>
           Capital Intelectual Tesorería
           </Typography>
-          <Typography variant="h4" align="center" gutterBottom>
+          <Typography sx={{ fontStyle: 'italic', fontSize: '0.875rem' }}>
+          El capital intelectual implica administrar el conocimiento tácito (intangible) y explícito (tangible) y esto se logra mediante acciones, mecanismos o instrumentos orientados a identificar, generar, capturar, transferir, apropiar, analizar, valorar, difundir y preservar el conocimiento al interior de una organización.
+        </Typography>
+          <Typography variant="h3" align="center" gutterBottom>
             Bienvenido(a) Hoja de conocimiento
           </Typography>
           <Typography variant="body1" paragraph>
