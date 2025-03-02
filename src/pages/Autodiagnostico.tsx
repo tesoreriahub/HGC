@@ -32,13 +32,38 @@ const Autodiagnostico: React.FC = () => {
     "Conocimiento temas experto": [],
   });
 
-  const sectionDescriptions: { [key: string]: string } = {
-    "Conocimiento medular": "Son conocimientos esenciales que generan ventajas competitivas a la subsecretaria de tesorería de la secretaria de hacienda como por ejemplo gestión de ingresos, gestión del gasto público, análisis de riesgos, entre otros, también son conocimientos nuevos, algo especial y único, como por ejemplo modelos de predicción, transformación digital, entre otros o conocimientos esenciales que se tienen desde la formación profesional como ingeniería económica, inversiones entre otros.",
-    "Conocimiento gerencial": "Son conocimientos no esenciales definidos como la información, experiencia y habilidades estratégicas que facilitan la toma de decisiones y la gestión organizacional eficaz, puede incluir, por ejemplo: gestión y gerencia de proyectos, gestión financiera, gestión del cambio, gestión de la productividad, gestión de conocimiento, etc.",
-    "Conocimiento en tecnologías de la información y las comunicaciones": "Son conocimientos no esenciales. Se refiere a conocimientos y competencias relacionadas con las Tecnologías de la Información y la Comunicación, puede incluir, por ejemplo: herramientas ofimáticas como Word, Excel, OneDrive, Teams, Google Drive, LibreOffice, entre otros, herramientas informáticas tales como sistemas operativos, bases de datos (SQL), lenguajes de programación (Python, Javascript, entre otros) o software especifico como SAP, Adobe, etc.",
-    "Conocimiento organizacional": "Son conocimientos no esenciales que contribuyen a la organización, planificación y desarrollo de procesos. Puede incluir por ejemplo: estructura organizacional, procesos, sistemas de calidad, atención al cliente, gestión de equipos, toma de decisiones, gestión del tiempo, responsabilidad social y corporativa, innovación, liderazgo, negociación, etc.",
-    "Conocimiento relacional": "Son conocimientos no esenciales relacionados o importantes para el cumplimiento de sus funciones y labores en su cargo, los cuales incluyen: decretos tributarios y de crédito público, normatividades, leyes como principios y normas contables y de información financiera, entidades (DIAN, Ministerio, Contraloría y demás), manuales del Estado, etc.",
-    "Conocimiento temas experto": "Son conocimientos no esenciales que implican responder a la pregunta ¿En qué tipo de conocimiento me considero un experto? Puede ser, por ejemplo: investigación cualitativa, gestión tecnológica, evaluación de puestos de trabajo, entorno económico, regulaciones, redes y seguridad, etc. No necesariamente estos conocimientos generan ventaja competitiva",
+  const sectionDescriptions:  { [key: string]: React.ReactNode } = {
+    "Conocimiento medular": (
+      <span>Son <strong>conocimientos esenciales que generan ventajas competitivas</strong> a la subsecretaria de tesorería de la secretaria de hacienda como por ejemplo gestión de ingresos, gestión del gasto público, análisis de riesgos, entre otros, también son <strong>conocimientos nuevos, algo especial y único</strong>, como por ejemplo modelos de predicción, transformación digital, entre otros o <strong>conocimientos esenciales</strong> que se tienen desde la formación profesional como ingeniería económica, inversiones entre otros.
+      </span>)
+      ,
+    "Conocimiento gerencial": (
+      <span>
+      Son <strong>conocimientos no esenciales</strong> definidos como la información, experiencia y habilidades estratégicas que facilitan la toma de decisiones y la gestión organizacional eficaz, puede incluir, por ejemplo: gestión y gerencia de proyectos, gestión financiera, gestión del cambio, gestión de la productividad, gestión de conocimiento, etc.
+      </span>
+    ),
+    "Conocimiento en tecnologías de la información y las comunicaciones": 
+    (
+      <span>
+      Son <strong>conocimientos no esenciales</strong>. Se refiere a conocimientos y competencias relacionadas con las Tecnologías de la Información y la Comunicación, puede incluir, por ejemplo: herramientas ofimáticas como Word, Excel, OneDrive, Teams, Google Drive, LibreOffice, entre otros, herramientas informáticas tales como sistemas operativos, bases de datos (SQL), lenguajes de programación (Python, Javascript, entre otros) o software especifico como SAP, Adobe, etc.
+      </span>
+      ),
+    "Conocimiento organizacional": 
+    (
+      <span>
+        Son <strong>conocimientos no esenciales</strong> que contribuyen a la organización, planificación y desarrollo de procesos. Puede incluir por ejemplo: estructura organizacional, procesos, sistemas de calidad, atención al cliente, gestión de equipos, toma de decisiones, gestión del tiempo, responsabilidad social y corporativa, innovación, liderazgo, negociación, etc.
+      </span>
+        ),
+    "Conocimiento relacional": (
+      <span>
+        Son <strong>conocimientos no esenciales</strong> relacionados o importantes para el cumplimiento de sus funciones y labores en su cargo, los cuales incluyen: decretos tributarios y de crédito público, normatividades, leyes como principios y normas contables y de información financiera, entidades (DIAN, Ministerio, Contraloría y demás), manuales del Estado, etc.
+        </span>
+        ),
+    "Conocimiento temas experto": (
+    <span>
+      Son <strong>conocimientos no esenciales</strong> que implican responder a la pregunta ¿En qué tipo de conocimiento me considero un experto? Puede ser, por ejemplo: investigación cualitativa, gestión tecnológica, evaluación de puestos de trabajo, entorno económico, regulaciones, redes y seguridad, etc. No necesariamente estos conocimientos generan ventaja competitiva"
+    </span>
+    ),
     Experiencia: "Detalla tus proyectos, conocimientos no laborales, educación y reconocimientos obtenidos.",
   };
 
@@ -329,6 +354,9 @@ socialNetworks.forEach((network) => {
     <Container maxWidth="md" style={{ marginTop: '20px' }}>
       {!currentSection ? (
         <Box>
+          <Typography variant='h2' align='center' gutterBottom>
+          Capital Intelectual Tesorería
+          </Typography>
           <Typography variant="h4" align="center" gutterBottom>
             Bienvenido(a) Hoja de conocimiento
           </Typography>
@@ -403,14 +431,14 @@ socialNetworks.forEach((network) => {
             Comenzar
           </Button>
           <Box marginTop={4} textAlign="center">
-        <Typography variant="body2">
+        <Typography variant="h6">
           <strong>Créditos</strong>
         </Typography>
         <Typography variant="body2">Desarrollado por Julián Uribe - julian.uribe@medellin.gov.co</Typography>
         <Typography variant="body2">Desarrollado por Alejandro Salgar - alejandro.salgar@medellin.gov.co</Typography>
         <Typography variant="body2">Supervisado por Jorge Iván Brand Ortiz Ph.D - Subsecretaria de Tesorería - Secretaria de Hacienda</Typography>
       </Box>
-      <Typography variant="h6">Referencias</Typography>
+      <Typography variant="h6"><strong>Referencias</strong></Typography>
             
             <Typography variant="body2" paragraph>
             Muñoz, A., et al.  ABECÉ del Modelo de Gestión del Conocimiento y la Innovación en el ITM (1.ª ed.). Editorial ITM. doi.org/10.22430/reporte.5958
