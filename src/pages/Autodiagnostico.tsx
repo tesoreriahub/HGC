@@ -729,7 +729,7 @@ socialNetworks.forEach((network) => {
                 disabled={!isSectionComplete()}
                 style={{ marginTop: '40px' }}
               >
-                Siguiente
+                Siguiente seccion
               </Button>
             </Box>
           )}
